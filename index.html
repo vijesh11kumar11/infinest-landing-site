@@ -14,6 +14,9 @@
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
+  <!-- Scroll progress / scrollytelling indicator -->
+  <div class="scroll-progress" aria-hidden="true"><span id="scrollBar"></span></div>
+
   <!-- Animated background canvas (Three.js) -->
   <canvas id="bg-canvas" aria-hidden="true"></canvas>
   <div class="bg-gradient" aria-hidden="true"></div>
@@ -55,9 +58,9 @@
           <a href="#contact" class="btn btn-outline"><i class="fa-solid fa-envelope-open-text"></i> Start a project</a>
         </div>
         <div class="hero-stats">
-          <div><strong>50+</strong><span>Products shipped</span></div>
-          <div><strong>20+</strong><span>AI deployments</span></div>
-          <div><strong>99.9%</strong><span>Cloud uptime</span></div>
+          <div><strong class="count" data-count="50" data-suffix="+">0</strong><span>Products shipped</span></div>
+          <div><strong class="count" data-count="20" data-suffix="+">0</strong><span>AI deployments</span></div>
+          <div><strong class="count" data-count="99.9" data-suffix="%" data-decimals="1">0</strong><span>Cloud uptime</span></div>
         </div>
       </div>
     </div>
@@ -83,36 +86,42 @@
       </div>
       <div class="cards">
         <article class="card" data-aos="fade-up">
+          <canvas class="card3d" data-three-card="brain" aria-hidden="true"></canvas>
           <div class="card-icon ic-1"><i class="fa-solid fa-brain"></i></div>
           <h3>AI & Machine Learning</h3>
           <p>LLM apps, RAG pipelines, fine‑tuning, predictive models and intelligent automation.</p>
           <a class="card-link" href="services.html#ai">Learn more <i class="fa-solid fa-arrow-right"></i></a>
         </article>
         <article class="card" data-aos="fade-up" data-aos-delay="80">
+          <canvas class="card3d" data-three-card="cloud" aria-hidden="true"></canvas>
           <div class="card-icon ic-2"><i class="fa-solid fa-cloud"></i></div>
           <h3>Cloud & DevOps</h3>
           <p>AWS, Azure, GCP architecture, CI/CD, Kubernetes, IaC and SRE best practices.</p>
           <a class="card-link" href="services.html#cloud">Learn more <i class="fa-solid fa-arrow-right"></i></a>
         </article>
         <article class="card" data-aos="fade-up" data-aos-delay="160">
+          <canvas class="card3d" data-three-card="code" aria-hidden="true"></canvas>
           <div class="card-icon ic-3"><i class="fa-solid fa-code"></i></div>
           <h3>Web & Mobile Apps</h3>
           <p>React, Next.js, Flutter and native iOS/Android — performant, accessible, beautiful.</p>
           <a class="card-link" href="services.html#apps">Learn more <i class="fa-solid fa-arrow-right"></i></a>
         </article>
         <article class="card" data-aos="fade-up" data-aos-delay="240">
+          <canvas class="card3d" data-three-card="shield" aria-hidden="true"></canvas>
           <div class="card-icon ic-4"><i class="fa-solid fa-shield-halved"></i></div>
           <h3>Cybersecurity</h3>
           <p>Audits, penetration testing, SOC, identity and zero‑trust architectures.</p>
           <a class="card-link" href="services.html#security">Learn more <i class="fa-solid fa-arrow-right"></i></a>
         </article>
         <article class="card" data-aos="fade-up">
+          <canvas class="card3d" data-three-card="data" aria-hidden="true"></canvas>
           <div class="card-icon ic-5"><i class="fa-solid fa-database"></i></div>
           <h3>Data Engineering</h3>
           <p>Lakehouses, real‑time pipelines, BI dashboards and analytics platforms.</p>
           <a class="card-link" href="services.html#data">Learn more <i class="fa-solid fa-arrow-right"></i></a>
         </article>
         <article class="card" data-aos="fade-up" data-aos-delay="80">
+          <canvas class="card3d" data-three-card="cube" aria-hidden="true"></canvas>
           <div class="card-icon ic-6"><i class="fa-solid fa-cube"></i></div>
           <h3>3D, AR/VR & WebGL</h3>
           <p>Immersive product experiences, 3D configurators and interactive marketing sites.</p>
@@ -194,7 +203,7 @@
 
   <!-- CTA / Contact -->
   <section id="contact" class="cta">
-    <canvas class="mini3d cta3d" data-three="torus" aria-hidden="true"></canvas>
+    <canvas class="mini3d cta3d" data-three="infinity" aria-hidden="true"></canvas>
     <div class="container cta-inner" data-aos="zoom-in">
       <h2>Let's build something <span class="grad">infinite</span>.</h2>
       <p>Tell us about your project — we usually reply within a few hours.</p>

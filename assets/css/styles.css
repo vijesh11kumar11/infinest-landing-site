@@ -28,6 +28,21 @@ h1,h2,h3,h4,h5{font-family:'Space Grotesk',sans-serif;font-weight:600;line-heigh
 
 /* Background */
 #bg-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:-2;display:block}
+
+/* Scroll progress / scrollytelling indicator */
+.scroll-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:rgba(255,255,255,.05);pointer-events:none}
+.scroll-progress span{display:block;height:100%;width:0;background:var(--grad);box-shadow:0 0 12px rgba(124,92,255,.6);transition:width .1s linear}
+
+/* Scrollytelling reveal — each element tells its story as it enters */
+.reveal{opacity:0;transform:translateY(28px);filter:blur(6px);transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1),filter .8s ease}
+.reveal.in{opacity:1;transform:none;filter:none}
+.reveal.r-left{transform:translateX(-40px)}
+.reveal.r-right{transform:translateX(40px)}
+.reveal.r-zoom{transform:scale(.92)}
+.reveal.in.r-left,.reveal.in.r-right,.reveal.in.r-zoom{transform:none}
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1;transform:none;filter:none;transition:none}
+}
 .bg-gradient{
   position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:
@@ -133,8 +148,12 @@ h1,h2,h3,h4,h5{font-family:'Space Grotesk',sans-serif;font-weight:600;line-heigh
 
 /* Cards */
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.card{position:relative;padding:28px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--border);transition:transform .3s ease, border-color .3s ease, background .3s}
+.card{position:relative;padding:28px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--border);overflow:hidden;transition:transform .3s ease, border-color .3s ease, background .3s}
 .card:hover{transform:translateY(-6px);border-color:rgba(124,92,255,.45);background:var(--surface-2)}
+.card > *{position:relative;z-index:1}
+/* Per-card mini WebGL scene — sits behind content, blooms on hover */
+.card3d{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.35;pointer-events:none;transition:opacity .35s ease, transform .35s ease;mix-blend-mode:screen}
+.card:hover .card3d{opacity:.85;transform:scale(1.06)}
 .card-icon{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;font-size:1.3rem;color:#0b0f24;margin-bottom:18px}
 .ic-1{background:linear-gradient(135deg,#7c5cff,#22d3ee)}
 .ic-2{background:linear-gradient(135deg,#22d3ee,#5cffb1)}
