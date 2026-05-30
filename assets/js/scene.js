@@ -1,6 +1,6 @@
-// InfinesTech — Real-time WebGL scenes (Three.js)
+﻿// InfinesTech  Real-time WebGL scenes (Three.js)
 // ------------------------------------------------------------------
-//  1) #hero-canvas  : "Neural Network / AI Brain" — glowing nodes + edges
+//  1) #hero-canvas  : "Neural Network / AI Brain"  glowing nodes + edges
 //  2) #bg-canvas    : scroll-driven morphing particle field
 //                     neural cloud → lattice → DNA helix → galaxy → ∞
 //  3) .card3d       : tiny per-service 3D scenes inside each card
@@ -12,13 +12,13 @@ import * as THREE from 'three';
 const PREFERS_REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const IS_MOBILE = window.matchMedia('(max-width: 760px)').matches;
 
-// Brand palette: deep indigo → electric violet → cyan
+// Brand palette: light theme  dark greens on white
 const PALETTE = {
-  indigo: new THREE.Color('#0f0c29'),
-  violet: new THREE.Color('#7c3aed'),
-  cyan:   new THREE.Color('#06b6d4'),
-  pink:   new THREE.Color('#ff5cc8'),
-  white:  new THREE.Color('#e7ecff'),
+  indigo: new THREE.Color('#166534'),
+  violet: new THREE.Color('#15803d'),
+  cyan:   new THREE.Color('#16a34a'),
+  pink:   new THREE.Color('#14532d'),
+  white:  new THREE.Color('#0f1f13'),
 };
 
 // Global scroll progress (0 at top → 1 at bottom). Updated by main.js too,
@@ -40,7 +40,7 @@ const smoothstep = (t) => t * t * (3 - 2 * t);
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 
 /* ================================================================
- * 1) HERO — Neural Network / AI Brain
+ * 1) HERO  Neural Network / AI Brain
  * ============================================================== */
 (function initHeroNeuralNet() {
   const canvas = document.getElementById('hero-canvas');
@@ -79,8 +79,8 @@ const clamp01 = (v) => Math.min(1, Math.max(0, v));
     nodeGeo.setAttribute('position', new THREE.BufferAttribute(nodePos, 3));
     nodeGeo.setAttribute('color', new THREE.BufferAttribute(nodeColor, 3));
     const nodeMat = new THREE.PointsMaterial({
-      size: 0.13, vertexColors: true, transparent: true, opacity: 0.95,
-      depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true,
+      size: 0.13, vertexColors: true, transparent: true, opacity: 0.85,
+      depthWrite: false, blending: THREE.NormalBlending, sizeAttenuation: true,
     });
     const nodes = new THREE.Points(nodeGeo, nodeMat);
     brain.add(nodes);
@@ -101,18 +101,25 @@ const clamp01 = (v) => Math.min(1, Math.max(0, v));
     const edgeGeo = new THREE.BufferGeometry();
     edgeGeo.setAttribute('position', new THREE.BufferAttribute(edgePos, 3));
     const edgeMat = new THREE.LineBasicMaterial({
-      color: 0x7c3aed, transparent: true, opacity: 0.22,
-      blending: THREE.AdditiveBlending, depthWrite: false,
+      color: 0x16a34a, transparent: true, opacity: 0.3,
+      blending: THREE.NormalBlending, depthWrite: false,
     });
     const edges = new THREE.LineSegments(edgeGeo, edgeMat);
     brain.add(edges);
 
     // glowing core
     const core = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(0.5, 1),
-      new THREE.MeshBasicMaterial({ color: 0x06b6d4, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending })
+      new THREE.IcosahedronGeometry(0.45, 2),
+      new THREE.MeshBasicMaterial({ color: 0x22c55e, transparent: true, opacity: 0.4, blending: THREE.NormalBlending })
     );
     brain.add(core);
+
+    // outer soft halo around the core
+    const coreHalo = new THREE.Mesh(
+      new THREE.IcosahedronGeometry(1.35, 2),
+      new THREE.MeshBasicMaterial({ color: 0x16a34a, transparent: true, opacity: 0.1, blending: THREE.NormalBlending, side: THREE.BackSide })
+    );
+    brain.add(coreHalo);
 
     const posAttr = nodeGeo.getAttribute('position');
     const edgeAttr = edgeGeo.getAttribute('position');
@@ -134,7 +141,7 @@ const clamp01 = (v) => Math.min(1, Math.max(0, v));
     window.addEventListener('resize', resize);
     if (window.ResizeObserver) new ResizeObserver(resize).observe(canvas);
 
-    // Mouse parallax — tilt the whole scene 5–8° following the cursor
+    // Mouse parallax  tilt the whole scene 5–8° following the cursor
     const TILT = THREE.MathUtils.degToRad(7);
     let tx = 0, ty = 0, mx = 0, my = 0;
     const heroSection = canvas.closest('.hero') || canvas.parentElement;
@@ -179,7 +186,8 @@ const clamp01 = (v) => Math.min(1, Math.max(0, v));
       }
       edgeAttr.needsUpdate = true;
       edgeMat.opacity = 0.18 + (Math.sin(t * 1.2) + 1) * 0.06;
-      core.scale.setScalar(1 + Math.sin(t * 1.4) * 0.12);
+      core.scale.setScalar(1 + Math.sin(t * 1.4) * 0.1);
+      coreHalo.scale.setScalar(1 + Math.sin(t * 1.0 + 0.5) * 0.08);
 
       // smooth tilt toward cursor (5–8°)
       mx += (tx - mx) * 0.05;
@@ -196,7 +204,7 @@ const clamp01 = (v) => Math.min(1, Math.max(0, v));
 })();
 
 /* ================================================================
- * 2) BACKGROUND — scroll-driven morphing particle field
+ * 2) BACKGROUND  scroll-driven morphing particle field
  *    Shapes: 0 neural cloud · 1 lattice · 2 helix · 3 galaxy · 4 ∞
  * ============================================================== */
 (function initMorphingBackground() {
@@ -287,8 +295,8 @@ const clamp01 = (v) => Math.min(1, Math.max(0, v));
     geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
     const mat = new THREE.PointsMaterial({
-      size: 0.085, vertexColors: true, transparent: true, opacity: 0.92,
-      depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true,
+      size: 0.085, vertexColors: true, transparent: true, opacity: 0.75,
+      depthWrite: false, blending: THREE.NormalBlending, sizeAttenuation: true,
     });
     const points = new THREE.Points(geo, mat);
     group.add(points);
@@ -353,17 +361,17 @@ const clamp01 = (v) => Math.min(1, Math.max(0, v));
 })();
 
 /* ================================================================
- * 3) MINI 3D SERVICE CARDS — [data-three-card]
+ * 3) MINI 3D SERVICE CARDS  [data-three-card]
  * ============================================================== */
 const CARD_BUILDERS = {
   brain(group) {
     const pts = new THREE.Points(
       new THREE.IcosahedronGeometry(1.15, 2),
-      new THREE.PointsMaterial({ color: 0x7c3aed, size: 0.07, transparent: true, opacity: 0.95, blending: THREE.AdditiveBlending, depthWrite: false })
+      new THREE.PointsMaterial({ color: 0x22c55e, size: 0.07, transparent: true, opacity: 0.95, blending: THREE.AdditiveBlending, depthWrite: false })
     );
     const wire = new THREE.Mesh(
       new THREE.IcosahedronGeometry(0.95, 1),
-      new THREE.MeshBasicMaterial({ color: 0x06b6d4, wireframe: true, transparent: true, opacity: 0.5 })
+      new THREE.MeshBasicMaterial({ color: 0x4ade80, wireframe: true, transparent: true, opacity: 0.5 })
     );
     group.add(pts, wire);
     return [{ m: pts, ry: 0.25, rx: 0.12 }, { m: wire, ry: -0.3, rx: 0.18 }];
@@ -371,7 +379,7 @@ const CARD_BUILDERS = {
   cloud(group) {
     const torus = new THREE.Mesh(
       new THREE.TorusKnotGeometry(0.8, 0.26, 120, 18),
-      new THREE.MeshStandardMaterial({ color: 0x22d3ee, metalness: 0.6, roughness: 0.3, emissive: 0x06b6d4, emissiveIntensity: 0.4 })
+      new THREE.MeshStandardMaterial({ color: 0x4ade80, metalness: 0.6, roughness: 0.3, emissive: 0x4ade80, emissiveIntensity: 0.4 })
     );
     group.add(torus);
     return [{ m: torus, ry: 0.4, rx: 0.25 }];
@@ -379,11 +387,11 @@ const CARD_BUILDERS = {
   code(group) {
     const box = new THREE.Mesh(
       new THREE.BoxGeometry(1.1, 1.1, 1.1),
-      new THREE.MeshStandardMaterial({ color: 0x7c3aed, metalness: 0.5, roughness: 0.3, emissive: 0x2a1f6b, emissiveIntensity: 0.5 })
+      new THREE.MeshStandardMaterial({ color: 0x22c55e, metalness: 0.5, roughness: 0.3, emissive: 0x1c2540, emissiveIntensity: 0.5 })
     );
     const cage = new THREE.Mesh(
       new THREE.BoxGeometry(1.5, 1.5, 1.5),
-      new THREE.MeshBasicMaterial({ color: 0x06b6d4, wireframe: true, transparent: true, opacity: 0.4 })
+      new THREE.MeshBasicMaterial({ color: 0x4ade80, wireframe: true, transparent: true, opacity: 0.4 })
     );
     group.add(box, cage);
     return [{ m: box, ry: 0.35, rx: 0.2 }, { m: cage, ry: -0.25, rx: 0.15 }];
@@ -391,11 +399,11 @@ const CARD_BUILDERS = {
   shield(group) {
     const oct = new THREE.Mesh(
       new THREE.OctahedronGeometry(1.1, 0),
-      new THREE.MeshStandardMaterial({ color: 0xff5cc8, metalness: 0.6, roughness: 0.25, emissive: 0x4a1538, emissiveIntensity: 0.5 })
+      new THREE.MeshStandardMaterial({ color: 0x4ade80, metalness: 0.6, roughness: 0.25, emissive: 0x16304a, emissiveIntensity: 0.5 })
     );
     const ring = new THREE.Mesh(
       new THREE.TorusGeometry(1.5, 0.02, 12, 120),
-      new THREE.MeshBasicMaterial({ color: 0x7c3aed, transparent: true, opacity: 0.7 })
+      new THREE.MeshBasicMaterial({ color: 0x22c55e, transparent: true, opacity: 0.7 })
     );
     ring.rotation.x = Math.PI / 3;
     group.add(oct, ring);
@@ -403,7 +411,7 @@ const CARD_BUILDERS = {
   },
   data(group) {
     const items = [];
-    const mat = new THREE.MeshStandardMaterial({ color: 0x22d3ee, metalness: 0.6, roughness: 0.3, emissive: 0x113b40, emissiveIntensity: 0.5 });
+    const mat = new THREE.MeshStandardMaterial({ color: 0x4ade80, metalness: 0.6, roughness: 0.3, emissive: 0x123a38, emissiveIntensity: 0.5 });
     for (let i = 0; i < 3; i++) {
       const cyl = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.85, 0.32, 28), mat);
       cyl.position.y = i * 0.42 - 0.42;
@@ -414,12 +422,12 @@ const CARD_BUILDERS = {
   },
   cube(group) {
     const items = [];
-    const colors = [0x7c3aed, 0x06b6d4, 0xff5cc8];
+    const colors = [0x22c55e, 0x4ade80, 0x4ade80];
     for (let i = 0; i < 5; i++) {
       const s = 0.4 + Math.random() * 0.4;
       const cube = new THREE.Mesh(
         new THREE.BoxGeometry(s, s, s),
-        new THREE.MeshStandardMaterial({ color: colors[i % 3], metalness: 0.5, roughness: 0.3, emissive: 0x2a1f6b, emissiveIntensity: 0.4 })
+        new THREE.MeshStandardMaterial({ color: colors[i % 3], metalness: 0.5, roughness: 0.3, emissive: 0x1c2540, emissiveIntensity: 0.4 })
       );
       cube.position.set((Math.random() - 0.5) * 2.2, (Math.random() - 0.5) * 2.2, (Math.random() - 0.5) * 1.4);
       cube.userData.spin = { x: (Math.random() - 0.5) * 0.5, y: (Math.random() - 0.5) * 0.5 };
@@ -441,8 +449,8 @@ function initCardScene(canvas) {
   const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
   camera.position.set(0, 0, 4.4);
   scene.add(new THREE.AmbientLight(0xffffff, 0.6));
-  const pl = new THREE.PointLight(0x7c3aed, 40, 30); pl.position.set(3, 3, 4); scene.add(pl);
-  const pl2 = new THREE.PointLight(0x06b6d4, 35, 30); pl2.position.set(-3, -2, 3); scene.add(pl2);
+  const pl = new THREE.PointLight(0x22c55e, 40, 30); pl.position.set(3, 3, 4); scene.add(pl);
+  const pl2 = new THREE.PointLight(0x4ade80, 35, 30); pl2.position.set(-3, -2, 3); scene.add(pl2);
 
   const group = new THREE.Group();
   scene.add(group);
@@ -470,25 +478,27 @@ function initCardScene(canvas) {
     requestAnimationFrame(loop);
     if (!running || !inView) return;
     const t = clock.getElapsedTime();
+    const hovered = canvas.dataset.hovered === '1';
+    const speedMul = hovered ? 2.8 : 1;
     items.forEach(it => {
       if (it.kind === 'cube') {
-        it.m.rotation.x += it.m.userData.spin.x * 0.02;
-        it.m.rotation.y += it.m.userData.spin.y * 0.02;
+        it.m.rotation.x += it.m.userData.spin.x * 0.02 * speedMul;
+        it.m.rotation.y += it.m.userData.spin.y * 0.02 * speedMul;
         it.m.position.y += Math.sin(t + it.m.position.x) * 0.002;
       } else {
-        if (it.ry) it.m.rotation.y = t * it.ry;
-        if (it.rx) it.m.rotation.x = t * it.rx;
-        if (it.rz) it.m.rotation.z = t * it.rz;
+        if (it.ry) it.m.rotation.y = t * it.ry * speedMul;
+        if (it.rx) it.m.rotation.x = t * it.rx * speedMul;
+        if (it.rz) it.m.rotation.z = t * it.rz * speedMul;
       }
     });
-    group.rotation.y = Math.sin(t * 0.3) * 0.25;
+    group.rotation.y = Math.sin(t * 0.3 * speedMul) * 0.25;
     renderer.render(scene, camera);
   })();
 }
 document.querySelectorAll('canvas[data-three-card]').forEach(initCardScene);
 
 /* ================================================================
- * 4) LEGACY mini decorative scenes ([data-three]) — stack / cta
+ * 4) LEGACY mini decorative scenes ([data-three])  stack / cta
  * ============================================================== */
 function initMiniScene(canvas) {
   const kind = canvas.dataset.three || 'sphere';
@@ -512,39 +522,39 @@ function initMiniScene(canvas) {
   const group = new THREE.Group();
   scene.add(group);
   scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-  const pl = new THREE.PointLight(0x7c3aed, 60, 30); pl.position.set(3, 3, 4); scene.add(pl);
-  const pl2 = new THREE.PointLight(0x06b6d4, 50, 30); pl2.position.set(-3, -2, 3); scene.add(pl2);
+  const pl = new THREE.PointLight(0x22c55e, 60, 30); pl.position.set(3, 3, 4); scene.add(pl);
+  const pl2 = new THREE.PointLight(0x4ade80, 50, 30); pl2.position.set(-3, -2, 3); scene.add(pl2);
 
   const items = [];
 
   if (kind === 'sphere') {
     const wire = new THREE.Mesh(
       new THREE.IcosahedronGeometry(1.6, 1),
-      new THREE.MeshBasicMaterial({ color: 0x7c3aed, wireframe: true, transparent: true, opacity: 0.6 })
+      new THREE.MeshBasicMaterial({ color: 0x22c55e, wireframe: true, transparent: true, opacity: 0.6 })
     );
     group.add(wire); items.push({ m: wire, ry: 0.25, rx: 0.1 });
     const pts = new THREE.Points(
       new THREE.IcosahedronGeometry(2.2, 3),
-      new THREE.PointsMaterial({ color: 0x06b6d4, size: 0.04, transparent: true, opacity: 0.95 })
+      new THREE.PointsMaterial({ color: 0x4ade80, size: 0.04, transparent: true, opacity: 0.95 })
     );
     group.add(pts); items.push({ m: pts, ry: -0.15, rx: 0.08 });
   } else if (kind === 'torus' || kind === 'infinity') {
-    // CTA brand mark — an infinity-like double knot converging into focus
+    // CTA brand mark  an infinity-like double knot converging into focus
     const t1 = new THREE.Mesh(
       new THREE.TorusKnotGeometry(1.1, 0.3, 200, 26, 2, 3),
-      new THREE.MeshStandardMaterial({ color: 0x2a1f6b, metalness: 0.7, roughness: 0.3, emissive: 0x7c3aed, emissiveIntensity: 0.45 })
+      new THREE.MeshStandardMaterial({ color: 0x1c2540, metalness: 0.7, roughness: 0.3, emissive: 0x22c55e, emissiveIntensity: 0.45 })
     );
     group.add(t1); items.push({ m: t1, ry: 0.35, rx: 0.18 });
     const pts = new THREE.Points(
       new THREE.TorusKnotGeometry(1.6, 0.42, 240, 8, 2, 3),
-      new THREE.PointsMaterial({ color: 0x06b6d4, size: 0.045, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending, depthWrite: false })
+      new THREE.PointsMaterial({ color: 0x4ade80, size: 0.045, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending, depthWrite: false })
     );
     group.add(pts); items.push({ m: pts, ry: -0.2, rx: 0.1 });
   } else if (kind === 'cubes') {
     const mat = [
-      new THREE.MeshStandardMaterial({ color: 0x7c3aed, metalness: 0.6, roughness: 0.3, emissive: 0x2a1f6b, emissiveIntensity: 0.4 }),
-      new THREE.MeshStandardMaterial({ color: 0x06b6d4, metalness: 0.6, roughness: 0.3, emissive: 0x113b40, emissiveIntensity: 0.4 }),
-      new THREE.MeshStandardMaterial({ color: 0xff5cc8, metalness: 0.6, roughness: 0.3, emissive: 0x4a1538, emissiveIntensity: 0.4 }),
+      new THREE.MeshStandardMaterial({ color: 0x22c55e, metalness: 0.6, roughness: 0.3, emissive: 0x1c2540, emissiveIntensity: 0.4 }),
+      new THREE.MeshStandardMaterial({ color: 0x4ade80, metalness: 0.6, roughness: 0.3, emissive: 0x123a38, emissiveIntensity: 0.4 }),
+      new THREE.MeshStandardMaterial({ color: 0x4ade80, metalness: 0.6, roughness: 0.3, emissive: 0x16304a, emissiveIntensity: 0.4 }),
     ];
     for (let i = 0; i < 7; i++) {
       const size = 0.35 + Math.random() * 0.55;
