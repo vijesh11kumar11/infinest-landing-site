@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="InfinesTech - IT services & AI solutions. We design, build, and scale modern software, cloud, and AI products." />
+  <title>InfinesTech — IT Services & AI Solutions</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E%E2%88%9E%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <!-- Animated background canvas (Three.js) -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <div class="bg-gradient" aria-hidden="true"></div>
+
+  <!-- Nav -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo" aria-label="InfinesTech home">
+        <img src="public/images/infilogo-removebg-preview.png" alt="InfinesTech logo" />
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html" class="active">Home</a>
+        <a href="services.html">Services</a>
+        <a href="about.html">About</a>
+        <a href="portfolio.html">Work</a>
+        <a href="#contact" class="btn btn-ghost"><i class="fa-solid fa-phone"></i> Talk to us</a>
+      </nav>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <canvas id="hero-canvas" aria-label="Interactive 3D scene"></canvas>
+    <div class="container hero-content">
+      <div class="hero-copy" data-aos="fade-up">
+        <span class="eyebrow"><i class="fa-solid fa-bolt"></i> Powering the next era of software</span>
+        <h1 class="hero-title">
+          We build <span class="grad">intelligent</span> products,
+          <br/>scale modern <span class="grad">IT</span>,
+          <br/>and ship <span class="grad">AI</span> that matters.
+        </h1>
+        <p class="hero-sub">
+          InfinesTech is a full‑stack technology studio delivering end‑to‑end IT services and AI solutions —
+          from cloud and DevOps to custom LLM apps, computer vision, automation and immersive web.
+        </p>
+        <div class="hero-cta">
+          <a href="services.html" class="btn btn-primary"><i class="fa-solid fa-rocket"></i> Explore services</a>
+          <a href="#contact" class="btn btn-outline"><i class="fa-solid fa-envelope-open-text"></i> Start a project</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong>50+</strong><span>Products shipped</span></div>
+          <div><strong>20+</strong><span>AI deployments</span></div>
+          <div><strong>99.9%</strong><span>Cloud uptime</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>AI/ML</span><span>Cloud</span><span>DevOps</span><span>Web Apps</span><span>Mobile</span>
+        <span>Computer Vision</span><span>LLM Apps</span><span>Automation</span><span>Cybersecurity</span>
+        <span>Data Engineering</span><span>UI/UX</span><span>3D & WebGL</span>
+        <span>AI/ML</span><span>Cloud</span><span>DevOps</span><span>Web Apps</span><span>Mobile</span>
+        <span>Computer Vision</span><span>LLM Apps</span><span>Automation</span><span>Cybersecurity</span>
+        <span>Data Engineering</span><span>UI/UX</span><span>3D & WebGL</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services preview -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head" data-aos="fade-up">
+        <span class="eyebrow"><i class="fa-solid fa-layer-group"></i> What we do</span>
+        <h2>End‑to‑end <span class="grad">IT & AI</span> capabilities</h2>
+        <p>From rapid prototypes to production systems — one partner across the stack.</p>
+      </div>
+      <div class="cards">
+        <article class="card" data-aos="fade-up">
+          <div class="card-icon ic-1"><i class="fa-solid fa-brain"></i></div>
+          <h3>AI & Machine Learning</h3>
+          <p>LLM apps, RAG pipelines, fine‑tuning, predictive models and intelligent automation.</p>
+          <a class="card-link" href="services.html#ai">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="card" data-aos="fade-up" data-aos-delay="80">
+          <div class="card-icon ic-2"><i class="fa-solid fa-cloud"></i></div>
+          <h3>Cloud & DevOps</h3>
+          <p>AWS, Azure, GCP architecture, CI/CD, Kubernetes, IaC and SRE best practices.</p>
+          <a class="card-link" href="services.html#cloud">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="card" data-aos="fade-up" data-aos-delay="160">
+          <div class="card-icon ic-3"><i class="fa-solid fa-code"></i></div>
+          <h3>Web & Mobile Apps</h3>
+          <p>React, Next.js, Flutter and native iOS/Android — performant, accessible, beautiful.</p>
+          <a class="card-link" href="services.html#apps">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="card" data-aos="fade-up" data-aos-delay="240">
+          <div class="card-icon ic-4"><i class="fa-solid fa-shield-halved"></i></div>
+          <h3>Cybersecurity</h3>
+          <p>Audits, penetration testing, SOC, identity and zero‑trust architectures.</p>
+          <a class="card-link" href="services.html#security">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="card" data-aos="fade-up">
+          <div class="card-icon ic-5"><i class="fa-solid fa-database"></i></div>
+          <h3>Data Engineering</h3>
+          <p>Lakehouses, real‑time pipelines, BI dashboards and analytics platforms.</p>
+          <a class="card-link" href="services.html#data">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="card" data-aos="fade-up" data-aos-delay="80">
+          <div class="card-icon ic-6"><i class="fa-solid fa-cube"></i></div>
+          <h3>3D, AR/VR & WebGL</h3>
+          <p>Immersive product experiences, 3D configurators and interactive marketing sites.</p>
+          <a class="card-link" href="services.html#3d">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section alt">
+    <div class="container">
+      <div class="section-head" data-aos="fade-up">
+        <span class="eyebrow"><i class="fa-solid fa-diagram-project"></i> How we work</span>
+        <h2>A clear path from <span class="grad">idea</span> to <span class="grad">impact</span></h2>
+      </div>
+      <ol class="steps">
+        <li data-aos="fade-right"><span class="step-n">01</span><h4>Discover</h4><p>Workshops, audits and product strategy to align goals with technology.</p></li>
+        <li data-aos="fade-right" data-aos-delay="80"><span class="step-n">02</span><h4>Design</h4><p>UX, architecture and AI feasibility — prototyped fast, validated faster.</p></li>
+        <li data-aos="fade-right" data-aos-delay="160"><span class="step-n">03</span><h4>Build</h4><p>Agile delivery, automated tests, CI/CD and continuous review.</p></li>
+        <li data-aos="fade-right" data-aos-delay="240"><span class="step-n">04</span><h4>Scale</h4><p>Observability, security, performance and ongoing AI optimization.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Tech stack -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head" data-aos="fade-up">
+        <span class="eyebrow"><i class="fa-solid fa-toolbox"></i> Our stack</span>
+        <h2>Modern tools. <span class="grad">Production‑grade</span> craft.</h2>
+      </div>
+      <div class="stack-wrap">
+        <canvas class="mini3d" data-three="sphere" aria-hidden="true"></canvas>
+        <div class="stack" data-aos="fade-up">
+        <div><i class="fa-brands fa-react"></i><span>React</span></div>
+        <div><i class="fa-brands fa-node-js"></i><span>Node.js</span></div>
+        <div><i class="fa-brands fa-python"></i><span>Python</span></div>
+        <div><i class="fa-brands fa-aws"></i><span>AWS</span></div>
+        <div><i class="fa-brands fa-google"></i><span>GCP</span></div>
+        <div><i class="fa-brands fa-microsoft"></i><span>Azure</span></div>
+        <div><i class="fa-brands fa-docker"></i><span>Docker</span></div>
+        <div><i class="fa-solid fa-dharmachakra"></i><span>Kubernetes</span></div>
+        <div><i class="fa-brands fa-figma"></i><span>Figma</span></div>
+        <div><i class="fa-brands fa-github"></i><span>GitHub</span></div>
+        <div><i class="fa-solid fa-fire"></i><span>PyTorch</span></div>
+        <div><i class="fa-solid fa-bolt"></i><span>Next.js</span></div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section alt">
+    <div class="container">
+      <div class="section-head" data-aos="fade-up">
+        <span class="eyebrow"><i class="fa-solid fa-comment-dots"></i> Voices</span>
+        <h2>Trusted by <span class="grad">founders & teams</span></h2>
+      </div>
+      <div class="cards">
+        <blockquote class="quote" data-aos="fade-up">
+          <i class="fa-solid fa-quote-left"></i>
+          <p>InfinesTech shipped our AI assistant in weeks. The quality and pace were unreal.</p>
+          <footer>— Priya R., Product Lead</footer>
+        </blockquote>
+        <blockquote class="quote" data-aos="fade-up" data-aos-delay="80">
+          <i class="fa-solid fa-quote-left"></i>
+          <p>From cloud migration to MLOps, they became our extended engineering team.</p>
+          <footer>— Daniel K., CTO</footer>
+        </blockquote>
+        <blockquote class="quote" data-aos="fade-up" data-aos-delay="160">
+          <i class="fa-solid fa-quote-left"></i>
+          <p>Beautiful UI, rock‑solid backend, and AI that actually moves metrics.</p>
+          <footer>— Aisha M., Founder</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / Contact -->
+  <section id="contact" class="cta">
+    <canvas class="mini3d cta3d" data-three="torus" aria-hidden="true"></canvas>
+    <div class="container cta-inner" data-aos="zoom-in">
+      <h2>Let's build something <span class="grad">infinite</span>.</h2>
+      <p>Tell us about your project — we usually reply within a few hours.</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="tel:+916382633918"><i class="fa-solid fa-phone"></i> +91 63826 33918</a>
+        <a class="btn btn-outline" href="tel:+919600925488"><i class="fa-solid fa-phone"></i> +91 96009 25488</a>
+        <a class="btn btn-ghost" href="mailto:infinest.help@gmail.com"><i class="fa-solid fa-envelope"></i> infinest.help@gmail.com</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html" class="logo" aria-label="InfinesTech home">
+          <img src="public/images/infilogo-removebg-preview.png" alt="InfinesTech logo" />
+        </a>
+        <p class="muted">Engineering the infinite — IT services & AI solutions for ambitious teams.</p>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="portfolio.html">Work</a>
+      </div>
+      <div>
+        <h5>Reach us</h5>
+        <a href="tel:+916382633918"><i class="fa-solid fa-phone"></i> 6382633918</a>
+        <a href="tel:+919600925488"><i class="fa-solid fa-phone"></i> 9600925488</a>
+        <a href="mailto:infinest.help@gmail.com"><i class="fa-solid fa-envelope"></i> infinest.help@gmail.com</a>
+      </div>
+      <div>
+        <h5>Follow</h5>
+        <div class="socials">
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="container copyright">© <span id="year"></span> InfinesTech. All rights reserved.</div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script type="importmap">
+    { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+  </script>
+  <script type="module" src="assets/js/scene.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
